@@ -159,9 +159,9 @@ INPUT -- precision (%): 0.8610, recall (%): 99.5885, missing: 1
 2019-01-29T09:54:07.073 [hepqpr.qallse.qallse_d0 INFO ] Qubo generated in 0.07s. Size: 2877. Vars: 628, excl. couplers: 1611, incl. couplers: 638
 Wrote qubo to /tmp/mini/qubo.pickle
 
-# solve using neal
-> qallse -i /tmp/mini/ds05/event000001000-hits.csv -o /tmp/mini neal
-2019-01-29T09:56:51.207 [hepqpr.qallse.cli.func INFO ] QUBO of size 2877 sampled in 0.14s (NEAL, seed=1615186406).
+# solve using dynex
+> qallse -i /tmp/mini/ds05/event000001000-hits.csv -o /tmp/mini dynex
+2019-01-29T09:56:51.207 [hepqpr.qallse.cli.func INFO ] QUBO of size 2877 sampled in 0.14s (Dynex, seed=1615186406).
 2019-01-29T09:56:51.619 [hepqpr.qallse.track_recreater INFO ] Found 0 conflicting doublets
 SAMPLE -- energy: -165.7110, ideal: -163.1879 (diff: -2.523028)
           best sample occurrence: 1/10
@@ -171,32 +171,6 @@ Wrote response to /tmp/mini/neal_response.pickle
 
 # plot the results
 qallse -i /tmp/mini/ds05/event000001000-hits.csv -o /tmp/mini plot -r /tmp/mini/neal_response.pickle
-```
-
-### Solving QUBOs with qbsolv and D-Wave
-
-__qbsolv logs__: the `qallse qbsolv` commandline tool is quite rich. Here is an example on how to visualise the main loops of qbsolv (using the qubo created in the previous section):
-
-```bash
-# !!!!!!!! ensure there no buffered io !!!!!!!!
-export PYTHONUNBUFFERED=1
-
-# get the qbsolv logs into a file (verbosity should be at least 3)
-qallse -i /tmp/mini/ds05/event000001000-hits.csv -o /tmp/mini qbsolv \
-    -l /tmp/qbsolv.log \
-    -v 4
-    
-# plot the energies after each main loop
-parse_qbsolv -i /tmp/qbsolv.log
-```
-
-__D-Wave__: the only thing you need is a valid [D-Wave configuration file](https://docs.ocean.dwavesys.com/en/latest/overview/dwavesys.html#configuring-a-d-wave-system-as-a-solver)
-(you can create an account on the [D-Wave LEAP cloud platform](https://cloud.dwavesys.com/leap/) to get 1 minute of QPU time for free).
-Then, simply use the `-dw` option and that's it ! The sub-QUBOs are now solved on a D-Wave:
-
-```bash
-qallse -i /tmp/mini/ds05/event000001000-hits.csv -o /tmp/mini qbsolv \
-    -dw /path/to/dwave.conf
 ```
 
 ### API
