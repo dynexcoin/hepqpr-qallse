@@ -52,6 +52,15 @@ def build_model(path, model, add_missing):
 
 # ======= sampling
 
+def solve_dynex(Q, seed=None, **kwargs):
+    import dynex
+    # sample on Dynex:
+    start_time = time.process_time()
+    response = dynex.sample_qubo(Q, 0.0, mainnet=True, num_reads=50000, annealing_time = 2000, **kwargs);
+    exec_time = time.process_time() - start_time
+    logger.info(f'QUBO of size {len(Q)} sampled in {exec_time:.2f}s (NEAL, seed={seed}).')
+    return response
+
 def solve_neal(Q, seed=None, **kwargs):
     from neal import SimulatedAnnealingSampler
     # generate seed for logging purpose
