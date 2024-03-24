@@ -31,7 +31,7 @@ qubo_prefix = 'evt{event}-ds{ds}-'  # prefix for the qubo files
 output_path = '/tmp/'  # where to serialize the responses
 output_prefix = qubo_prefix  # prefix for serialized responses
 
-solver = 'neal'  # solver to use
+solver = 'dynex'  # solver to use
 solver_config = dict()  # parameters for the solver. Note that "seed" is generated later.
 
 # ==== configure logging
@@ -65,6 +65,8 @@ def run_one(event, ds):
                     response = solve_qbsolv(Q, **solver_config)
                 elif solver == 'dwave':
                     response = solve_dwave(Q, **solver_config)
+                elif solver == 'dynex':
+                    response = solve_dynex(Q, **solver_config)
                 else:
                     raise Exception('Invalid solver name.')
 
