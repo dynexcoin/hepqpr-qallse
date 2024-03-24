@@ -20,7 +20,7 @@ $$   $$$$$$$$$$$$$$$$$$$$$$$         $$
             $$$     $$$$$   $$$                \__>     \/                  \/      \/ 
 ```
 
-# HEPQPR.Qallse
+# HEPQPR.Qallse on Dynex
 
 The [HEPQPR](https://sites.google.com/lbl.gov/hep-qpr).Qallse project encodes the HEP (ATLAS) pattern recognition problem into a QUBO and solves it using a D-Wave or other classical QUBO libraries (qbsolv, neal).
 
