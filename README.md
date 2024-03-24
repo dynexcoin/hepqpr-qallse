@@ -46,7 +46,7 @@ I am available for any question (email or Github issue is fine) and would be gla
     + [Installation](#installation)
     + [Quickstart](#quickstart)
     + [Commandline tools](#commandline-tools)
-    + [Solving QUBOs with qbsolv and D-Wave](#solving-qubos-with-qbsolv-and-d-wave)
+    + [Solving QUBOs with Dynex](#commandline-tools)
     + [API](#api)
     + [Running from an IPython notebook](#running-from-an-ipython-notebook)
   * [Plotting](#plotting)
