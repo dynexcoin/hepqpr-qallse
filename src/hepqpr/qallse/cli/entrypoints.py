@@ -169,6 +169,33 @@ def cli_neal(ctx, qubo, seed):
         with open(oname, 'wb') as f: pickle.dump(response, f)
         print(f'Wrote response to {oname}')
 
+@cli.command('dynex',
+             help='Sample a QUBO using Dynex.')
+@click.option('-q', '--qubo', default=None, metavar='filepath',
+              help='Path to the pickled QUBO. Default to <output_path>/<prefix>qubo.pickle')
+@click.option('-s', '--seed', default=None, type=int, metavar='int',
+              help='Seed to use.')
+@click.pass_obj
+def cli_dynex(ctx, qubo, seed):
+    '''
+    Solve a QUBO using Dynex 
+    Dynex is a neuromorphic cloud computing platform
+    '''
+    try:
+        if qubo is None: qubo = ctx.get_output_path('qubo.pickle')
+        with open(qubo, 'rb') as f:
+            Q = pickle.load(f)
+    except:
+        print(f'Failed to load QUBO. Are you sure {qubo} is a pickled qubo file ?')
+        sys.exit(-1)
+
+    response = solve_dynex(Q, seed=seed)
+    print_stats(ctx.dw, response, Q)
+    if ctx.output_path is not None:
+        oname = ctx.get_output_path('dynex_response.pickle')
+        with open(oname, 'wb') as f: pickle.dump(response, f)
+        print(f'Wrote response to {oname}')
+
 
 @cli.command('quickstart',
              context_settings=dict(ignore_unknown_options=True, allow_extra_args=True))
